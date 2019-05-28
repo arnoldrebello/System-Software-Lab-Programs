@@ -1,0 +1,305 @@
+Arnolds-MacBook-Pro:~ arnoldrebello$ cd /Users/arnoldrebello/SSLabPrograms
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog1a.l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc lex.yy.c -ll
+prog1a.l:14:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+main()
+^
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter the expressiona+b
+
+ Identifier:a
+ Operator:+
+ Identifier:b^D
+ Expression is Valid
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter the expression(a+b)-c*d+(e/f)
+
+ Identifier:a
+ Operator:+
+ Identifier:b
+ Operator:-
+ Identifier:c
+ Operator:*
+ Identifier:d
+ Operator:+
+ Identifier:e
+ Operator:/
+ Identifier:f^D
+ Expression is Valid
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter the expressiona+
+
+ Identifier:a
+ Operator:+^D
+ Expression is Invalid
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ yacc -d prog1b.y
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog1b.l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc y.tab.c lex.yy.c -ll
+y.tab.c:1220:16: warning: implicit declaration of function 'yylex' is invalid in
+      C99 [-Wimplicit-function-declaration]
+      yychar = YYLEX;
+               ^
+y.tab.c:576:16: note: expanded from macro 'YYLEX'
+# define YYLEX yylex ()
+               ^
+y.tab.c:1375:7: warning: implicit declaration of function 'yyerror' is invalid
+      in C99 [-Wimplicit-function-declaration]
+      yyerror (YY_("syntax error"));
+      ^
+y.tab.c:1521:3: warning: implicit declaration of function 'yyerror' is invalid
+      in C99 [-Wimplicit-function-declaration]
+  yyerror (YY_("memory exhausted"));
+  ^
+3 warnings generated.
+prog1b.l:3:8: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+extern yylval;
+~~~~~~ ^
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter an expression:
+(2+3)*5+9
+34
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter an expression:
+5/0
+Divide by Zero
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter an expression:
+(2+4)*(2-8)
+-36
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ yacc -d prog2.y
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog2.l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc y.tab.c lex.yy.c -ll
+y.tab.c:1219:16: warning: implicit declaration of function 'yylex' is invalid in
+      C99 [-Wimplicit-function-declaration]
+      yychar = YYLEX;
+               ^
+y.tab.c:575:16: note: expanded from macro 'YYLEX'
+# define YYLEX yylex ()
+               ^
+y.tab.c:1342:7: warning: implicit declaration of function 'yyerror' is invalid
+      in C99 [-Wimplicit-function-declaration]
+      yyerror (YY_("syntax error"));
+      ^
+y.tab.c:1488:3: warning: implicit declaration of function 'yyerror' is invalid
+      in C99 [-Wimplicit-function-declaration]
+  yyerror (YY_("memory exhausted"));
+  ^
+prog2.y:11:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+main()
+^
+4 warnings generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter a String 
+
+Error 
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter a String 
+b
+Successful Grammer
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter a String 
+a
+Error 
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter a String 
+aaaaaaaaaaab
+Successful Grammer
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc prog3.c
+prog3.c:21:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+push(char item)
+^
+prog3.c:23:24: warning: control reaches end of non-void function [-Wreturn-type]
+    stack[++top]=item; }
+                       ^
+prog3.c:24:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+pop()
+^
+prog3.c:28:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+prog3.c:29:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+display()
+^
+prog3.c:33:32: warning: control reaches end of non-void function [-Wreturn-type]
+        printf("%c",stack[i]); }
+                               ^
+prog3.c:34:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+numr(char c)
+^
+prog3.c:46:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main()
+^
+prog3.c:46:1: note: change return type to 'int'
+void main()
+^~~~
+int
+prog3.c:88:13: warning: implicitly declaring library function 'exit' with type
+      'void (int) __attribute__((noreturn))' [-Wimplicit-function-declaration]
+            exit(0);
+            ^
+prog3.c:88:13: note: include the header <stdlib.h> or explicitly provide a
+      declaration for 'exit'
+9 warnings generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+
+ Grammar:
+A->aBa
+B->bB
+B->@
+
+first= {a,b,@}
+follow ={$ a}
+
+Predictive parsing table for the given grammar
+
+--------------------------------------------------------
+          a         b         $         
+--------------------------------------------------------
+A         A->aBa    e         e         
+--------------------------------------------------------
+B         B->@      B->bB     e         
+--------------------------------------------------------
+enter the input string terminated with $ to parse :- abba$
+
+
+ stack	 Input 	action 
+--------------------------------------------------------
+A$		abba$	  	apply production A->aBa
+aBa$		abba$	 	matched a
+Ba$		bba$	  	apply production B->bB
+bBa$		bba$	 	matched b
+Ba$		ba$	  	apply production B->bB
+bBa$		ba$	 	matched b
+Ba$		a$	  	apply production B->@
+a$		a$	 	matched a
+$		$	 
+--------------------------------------------------------
+
+ valid string - Accepted
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc prog4.c
+prog4.c:16:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main()
+^
+prog4.c:16:1: note: change return type to 'int'
+void main()
+^~~~
+int
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+GRAMMAR is E->E+E
+ E->E*E
+ E->(E) 
+ E->id
+enter input string
+warning: this program uses gets(), which is unsafe.
+id+id*id
+stack 	 input 	 action
+
+$id	  +id*id$	SHIFT->id
+$E	  +id*id$	REDUCE TO E
+$E+	   id*id$	SHIFT->symbols
+$E+id	     *id$	SHIFT->id
+$E+E	     *id$	REDUCE TO E
+$E	     *id$	REDUCE TO E
+$E*	      id$	SHIFT->symbols
+$E*id	        $	SHIFT->id
+$E*E	        $	REDUCE TO E
+$E	        $	REDUCE TO EArnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ 
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc prog5.c
+prog5.c:15:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main()
+^
+prog5.c:15:1: note: change return type to 'int'
+void main()
+^~~~
+int
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+-BCT1T3Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ echo "it Prints"
+it Prints
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog6a.l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc lex.yy.c -ll
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out f1.txt f2.txt
+Number of Comment Lines:2
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ echo "it copies"
+it copies
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ yacc -d prog6b.y
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog6b,l
+flex: can't open prog6b,l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ lex prog6b.l
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc y.tab.c lex.yy.c -ll
+prog6b.y:25:1: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+main() {
+^
+1 warning generated.
+prog6b.l:4:8: warning: type specifier missing, defaults to 'int'
+      [-Wimplicit-int]
+extern yylval;
+~~~~~~ ^
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+keyword is void
+identifier is main
+
+
+keyword is float
+identifier is a123
+
+keyword is char
+identifier is a
+
+keyword is char
+identifier is b123
+
+keyword is char
+identifier is c
+
+keyword is if
+identifier is sum
+operator is =
+operator is =
+numbers is 10
+
+identifier is printf
+identifier is pass
+
+keyword is else
+
+identifier is printf
+identifier is fail
+
+
+numbers = 1
+Keywords = 7
+Identifiers = 10
+operators =2
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ cc prog7.c
+prog7.c:29:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main()
+^
+prog7.c:29:1: note: change return type to 'int'
+void main()
+^~~~
+int
+1 warning generated.
+Arnolds-MacBook-Pro:SSLabPrograms arnoldrebello$ ./a.out
+Enter the choice 
+1.Round Robin 
+2.SRT 
+3.Exit 
+1
+Round Robin scheduling algorithm 
+Enter number of processes:
+24
+Enter burst time for sequences:3
+3^D
